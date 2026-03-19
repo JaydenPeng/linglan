@@ -59,8 +59,8 @@
 
 ### Design Docs（设计文档）
 
-- [ ] **DOC-01**: 生成 UI 设计文档（docs/UI设计文档.md）
-- [ ] **DOC-02**: 生成技术设计文档（docs/技术设计文档.md）
+- [x] **DOC-01**: 生成 UI 设计文档（docs/UI设计文档.md）
+- [x] **DOC-02**: 生成技术设计文档（docs/技术设计文档.md）
 
 ## v2 Requirements
 
