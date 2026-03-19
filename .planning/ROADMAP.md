@@ -28,7 +28,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. docs/UI设计文档.md 和 docs/技术设计文档.md 已生成，包含组件结构和 API 集成方案
   3. 项目可以在 Electron 中启动，Vue 3 + Vite + Pinia 基础框架运行正常
   4. 即梦 HMAC-SHA256 签名和可灵 JWT HS256 鉴权逻辑在主进程中验证通过（密钥不进入渲染进程）
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — electron-vite + Vue 3 + TypeScript 项目骨架 + vitest Wave 0 stub
+- [ ] 01-02-PLAN.md — 生成 UI 设计文档和技术设计文档（docs/）
+- [ ] 01-03-PLAN.md — 主进程鉴权模块（hmacSigner + jwtSigner + configStore + IPC handlers）
 
 ### Phase 2: 图片生成核心流程
 **Goal**: 用户可以提交文生图/图生图任务，实时看到任务状态，并预览和下载生成结果
@@ -70,7 +75,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. 基础设施与设计文档 | 0/TBD | Not started | - |
+| 1. 基础设施与设计文档 | 0/3 | Not started | - |
 | 2. 图片生成核心流程 | 0/TBD | Not started | - |
 | 3. 视频生成与体验完善 | 0/TBD | Not started | - |
 | 4. 移动端适配 | 0/TBD | Not started | - |
