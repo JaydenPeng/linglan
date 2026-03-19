@@ -45,7 +45,14 @@ Plans:
   3. 多个任务可以并行执行，每个任务独立显示状态，失败任务可以重试，进行中任务可以取消
   4. 任务完成后用户可以在线预览生成图片，并下载到本地
   5. 用户可以分享生成结果的链接
-**Plans**: TBD
+**Plans**: 5 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — 类型合约 + Pinia taskStore + contextBridge imageApi（Wave 1）
+- [ ] 02-02-PLAN.md — 主进程即梦 API 调用 + 轮询管理器（Wave 2）
+- [ ] 02-03-PLAN.md — 任务提交界面 CreateView（文生图/图生图 Tab）（Wave 2）
+- [ ] 02-04-PLAN.md — 任务列表 TaskListView + TaskCard 组件（Wave 2）
+- [ ] 02-05-PLAN.md — 全屏预览 + 下载 + 分享 ImagePreviewModal（Wave 3）
 
 ### Phase 3: 视频生成与体验完善
 **Goal**: 用户可以发起文生视频任务，查看历史记录，使用提示词模板提升创作效率
@@ -82,6 +89,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. 基础设施与设计文档 | 0/3 | Not started | - |
-| 2. 图片生成核心流程 | 0/TBD | Not started | - |
+| 2. 图片生成核心流程 | 0/5 | Not started | - |
 | 3. 视频生成与体验完善 | 0/4 | Not started | - |
 | 4. 移动端适配 | 0/TBD | Not started | - |
