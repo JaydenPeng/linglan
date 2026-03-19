@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-05-PLAN.md
-last_updated: "2026-03-19T17:18:56.010Z"
-last_activity: 2026-03-20 — Plan 03-02 complete, 历史记录与提示词模板数据层
+stopped_at: Completed 03-03-PLAN.md
+last_updated: "2026-03-20T01:24:00.000Z"
+last_activity: 2026-03-20 — Plan 03-03 complete, 视频生成 UI 层
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 14
-  completed_plans: 10
-  percent: 75
+  completed_plans: 11
+  percent: 79
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 ## Current Position
 
 Phase: 3 of 4 (视频生成与体验完善)
-Plan: 2 of 3 in current phase
+Plan: 3 of 3 in current phase
 Status: In progress
-Last activity: 2026-03-20 — Plan 03-02 complete, 历史记录与提示词模板数据层
+Last activity: 2026-03-20 — Plan 03-03 complete, 视频生成 UI 层
 
-Progress: [████████░░] 75%
+Progress: [████████░░] 79%
 
 ## Performance Metrics
 
@@ -59,6 +59,7 @@ Progress: [████████░░] 75%
 | Phase 01-基础设施与设计文档 P03 | 10 | 2 tasks | 6 files |
 | Phase 03-视频生成与体验完善 P02 | 4 | 2 tasks | 8 files |
 | Phase 02-图片生成核心流程 P05 | 3 | 1 tasks | 4 files |
+| Phase 03-视频生成与体验完善 P03 | 15 | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -88,6 +89,9 @@ Recent decisions affecting current work:
 - [Phase 03-02]: deleteCustomTemplate 通过检查 customTemplates ref 而非 is_builtin 字段防止删除内置模板
 - [Phase 02-图片生成核心流程]: Electron dialog+fs+shell 替代 Capacitor Filesystem/Share（项目无 Capacitor 依赖）
 - [Phase 02-图片生成核心流程]: CSS transform 滑动替代废弃的 ion-slides，IPC image:download 通道处理下载
+- [Phase 03-03]: 项目无 Ionic 依赖，所有 UI 组件使用原生 HTML + CSS 实现，与现有 Settings.vue 风格一致
+- [Phase 03-03]: App.vue 改为 Tab Bar 导航（视频/设置），默认显示视频页，无需引入 vue-router
+- [Phase 03-03]: ipcClient.ts 补充 ipcRenderer.invoke 重载类型，覆盖 video:submit / video:poll / image:download
 
 ### Pending Todos
 
