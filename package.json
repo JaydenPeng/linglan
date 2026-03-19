@@ -1,0 +1,37 @@
+{
+  "name": "linglan",
+  "version": "1.0.0",
+  "description": "灵兰",
+  "main": "out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "test": "vitest --run",
+    "test:unit": "vitest --run --reporter=verbose"
+  },
+  "author": "pencil",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/node": "^25.5.0",
+    "@vitejs/plugin-vue": "^6.0.5",
+    "@vue/test-utils": "^2.4.6",
+    "electron": "^41.0.3",
+    "electron-vite": "^5.0.0",
+    "jsdom": "^29.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vitest": "^4.1.0",
+    "vue-tsc": "^3.2.6"
+  },
+  "dependencies": {
+    "@ionic/vue": "^8.8.1",
+    "crypto-js": "^4.2.0",
+    "electron-store": "^11.0.2",
+    "ionicons": "^8.0.13",
+    "jose": "^6.2.2",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.30"
+  }
+}
