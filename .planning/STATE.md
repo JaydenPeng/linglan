@@ -4,13 +4,13 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Completed 01-03-PLAN.md
-last_updated: "2026-03-19T17:11:49.137Z"
+last_updated: "2026-03-19T17:11:59.500Z"
 last_activity: 2026-03-20 — Plan 03-01 complete, Kling Omni-Video API + IPC handlers
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 12
-  completed_plans: 6
+  completed_plans: 7
   percent: 33
 ---
 
@@ -73,6 +73,7 @@ Recent decisions affecting current work:
 - [Phase 02-图片生成核心流程]: IPC_CHANNELS 常量定义在 types/image.ts，主进程和渲染进程统一 import，避免字符串硬编码
 - [Phase 03-01]: 渲染进程负责定时轮询 video:poll，主进程不内部轮询，与 Phase 2 架构一致
 - [Phase 03-01]: 图片参数（image_url/image_tail_url）直接透传，可灵 API 支持 base64 data URI
+- [Phase 01]: jwtSigner 使用 Node.js crypto 而非 jose，避免 vitest node 环境中 Uint8Array 跨 realm instanceof 失败
 
 ### Pending Todos
 
