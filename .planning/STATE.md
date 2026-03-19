@@ -4,13 +4,13 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Completed 01-02-PLAN.md
-last_updated: "2026-03-19T17:06:09.869Z"
+last_updated: "2026-03-19T17:08:29.581Z"
 last_activity: 2026-03-20 — Plan 01-01 complete, electron-vite scaffold + vitest Wave 0 stubs
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 12
-  completed_plans: 2
+  completed_plans: 3
   percent: 33
 ---
 
@@ -51,6 +51,8 @@ Progress: [███░░░░░░░] 33%
 
 *Updated after each plan completion*
 | Phase 01 P02 | 8 | 2 tasks | 2 files |
+| Phase 01 P02 | 8 | 2 tasks | 2 files |
+| Phase 02-图片生成核心流程 P01 | 2 | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -64,6 +66,9 @@ Recent decisions affecting current work:
 - [01-01]: jose 从 externalizeDepsPlugin 排除，由 Vite 打包处理 ESM→CJS 转换
 - [01-01]: vitest 使用 jsdom 环境，支持渲染进程 Vue 组件测试
 - [Phase 01]: IPC 通道命名采用 config:* 前缀，共 4 个通道，渲染进程只接收布尔状态，密钥不经 IPC 回传
+- [Phase 01]: IPC 通道命名采用 config:* 前缀，共 4 个通道，覆盖保存/状态查询/验证
+- [Phase 01]: 渲染进程只接收布尔状态，密钥不经 IPC 回传，安全红线明确
+- [Phase 01]: 可灵 JWT nbf 设为 now-5 防时钟偏差，token 缓存 exp-60s 时刷新
 
 ### Pending Todos
 
@@ -76,6 +81,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T17:06:09.865Z
+Last session: 2026-03-19T17:08:14.084Z
 Stopped at: Completed 01-02-PLAN.md
 Resume file: None
