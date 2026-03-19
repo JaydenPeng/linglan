@@ -66,7 +66,7 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — 可灵 Omni-Video API 主进程封装（IPC handlers + API + 类型定义）
+- [x] 03-01-PLAN.md — 可灵 Omni-Video API 主进程封装（IPC handlers + API + 类型定义）
 - [ ] 03-02-PLAN.md — 历史记录 store + 提示词模板 store（数据层 + 内置模板）
 - [ ] 03-03-PLAN.md — 视频生成表单 UI + 嵌入播放器（依赖 03-01）
 - [ ] 03-04-PLAN.md — 历史记录列表 UI + 提示词模板面板（依赖 03-02）
@@ -90,5 +90,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. 基础设施与设计文档 | 2/3 | In Progress|  |
 | 2. 图片生成核心流程 | 1/5 | In Progress|  |
-| 3. 视频生成与体验完善 | 0/4 | Not started | - |
+| 3. 视频生成与体验完善 | 1/4 | In Progress | - |
 | 4. 移动端适配 | 0/TBD | Not started | - |

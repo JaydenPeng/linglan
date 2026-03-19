@@ -20,10 +20,10 @@
 
 ### Video Generation（生视频）
 
-- [ ] **VID-01**: 用户可以通过文字提示词发起生视频任务（文生视频）
-- [ ] **VID-02**: 用户可以上传首帧/尾帧图片控制视频内容
-- [ ] **VID-03**: 用户可以配置视频参数（时长 3-15s、宽高比 16:9/9:16/1:1、模式 std/pro）
-- [ ] **VID-04**: 用户可以使用多镜头模式（multi_shot）生成视频
+- [x] **VID-01**: 用户可以通过文字提示词发起生视频任务（文生视频）
+- [x] **VID-02**: 用户可以上传首帧/尾帧图片控制视频内容
+- [x] **VID-03**: 用户可以配置视频参数（时长 3-15s、宽高比 16:9/9:16/1:1、模式 std/pro）
+- [x] **VID-04**: 用户可以使用多镜头模式（multi_shot）生成视频
 
 ### Task Management（任务管理）
 
@@ -94,7 +94,7 @@
 | IMG-01 ~ IMG-04 | Phase 2 | Pending |
 | TASK-01 ~ TASK-04 | Phase 2 | Pending |
 | RES-01 ~ RES-04 | Phase 2 | Pending |
-| VID-01 ~ VID-04 | Phase 3 | Pending |
+| VID-01 ~ VID-04 | Phase 3 | Complete |
 | HIST-01 ~ HIST-04 | Phase 3 | Pending |
 | PROMPT-01 ~ PROMPT-03 | Phase 3 | Pending |
 | MOB-01 ~ MOB-02 | Phase 4 | Pending |

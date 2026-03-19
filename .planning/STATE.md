@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-19T17:08:39.744Z"
-last_activity: 2026-03-20 — Plan 01-01 complete, electron-vite scaffold + vitest Wave 0 stubs
+stopped_at: Completed 01-03-PLAN.md
+last_updated: "2026-03-19T17:11:49.137Z"
+last_activity: 2026-03-20 — Plan 03-01 complete, Kling Omni-Video API + IPC handlers
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 12
-  completed_plans: 3
+  completed_plans: 6
   percent: 33
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-19)
 
 **Core value:** 用户能够通过提示词模板或自由输入，快速发起 AI 生图/生视频任务，并在任务完成后查看、下载结果
-**Current focus:** Phase 1 - 基础设施与设计文档
+**Current focus:** Phase 3 - 视频生成与体验完善
 
 ## Current Position
 
-Phase: 1 of 4 (基础设施与设计文档)
+Phase: 3 of 4 (视频生成与体验完善)
 Plan: 1 of 3 in current phase
 Status: In progress
-Last activity: 2026-03-20 — Plan 01-01 complete, electron-vite scaffold + vitest Wave 0 stubs
+Last activity: 2026-03-20 — Plan 03-01 complete, Kling Omni-Video API + IPC handlers
 
 Progress: [███░░░░░░░] 33%
 
@@ -53,6 +53,7 @@ Progress: [███░░░░░░░] 33%
 | Phase 01 P02 | 8 | 2 tasks | 2 files |
 | Phase 01 P02 | 8 | 2 tasks | 2 files |
 | Phase 02-图片生成核心流程 P01 | 2 | 3 tasks | 4 files |
+| Phase 01 P03 | 10 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -70,7 +71,8 @@ Recent decisions affecting current work:
 - [Phase 01]: 渲染进程只接收布尔状态，密钥不经 IPC 回传，安全红线明确
 - [Phase 01]: 可灵 JWT nbf 设为 now-5 防时钟偏差，token 缓存 exp-60s 时刷新
 - [Phase 02-图片生成核心流程]: IPC_CHANNELS 常量定义在 types/image.ts，主进程和渲染进程统一 import，避免字符串硬编码
-- [Phase 02-图片生成核心流程]: onStatusUpdate 使用具名 handler，确保 removeListener 能正确取消订阅
+- [Phase 03-01]: 渲染进程负责定时轮询 video:poll，主进程不内部轮询，与 Phase 2 架构一致
+- [Phase 03-01]: 图片参数（image_url/image_tail_url）直接透传，可灵 API 支持 base64 data URI
 
 ### Pending Todos
 
@@ -83,6 +85,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T17:08:39.741Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-03-19T17:11:49.133Z
+Stopped at: Completed 01-03-PLAN.md
 Resume file: None
