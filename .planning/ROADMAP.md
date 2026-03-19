@@ -79,7 +79,11 @@ Plans:
   1. 应用可以通过 Capacitor 打包为 iOS 原生应用并在真机上运行，所有核心功能正常
   2. 应用可以通过 Capacitor 打包为 Android 原生应用并在真机上运行，所有核心功能正常
   3. 移动端可以将生成的图片/视频下载到设备本地相册或文件系统
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — 共享服务层（platform.ts + storageService + jimengService + klingService + downloadService）
+- [ ] 04-02-PLAN.md — Capacitor 初始化 + 原生平台配置 + 权限声明 + 真机验证检查点
 
 ## Progress
 
@@ -91,4 +95,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. 基础设施与设计文档 | 3/3 | Complete   | 2026-03-19 |
 | 2. 图片生成核心流程 | 3/5 | In Progress|  |
 | 3. 视频生成与体验完善 | 1/4 | In Progress | - |
-| 4. 移动端适配 | 0/TBD | Not started | - |
+| 4. 移动端适配 | 0/2 | Not started | - |
