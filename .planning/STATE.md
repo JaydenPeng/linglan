@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-02-PLAN.md
-last_updated: "2026-03-19T17:08:29.581Z"
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-03-19T17:08:39.744Z"
 last_activity: 2026-03-20 — Plan 01-01 complete, electron-vite scaffold + vitest Wave 0 stubs
 progress:
   total_phases: 4
@@ -69,6 +69,8 @@ Recent decisions affecting current work:
 - [Phase 01]: IPC 通道命名采用 config:* 前缀，共 4 个通道，覆盖保存/状态查询/验证
 - [Phase 01]: 渲染进程只接收布尔状态，密钥不经 IPC 回传，安全红线明确
 - [Phase 01]: 可灵 JWT nbf 设为 now-5 防时钟偏差，token 缓存 exp-60s 时刷新
+- [Phase 02-图片生成核心流程]: IPC_CHANNELS 常量定义在 types/image.ts，主进程和渲染进程统一 import，避免字符串硬编码
+- [Phase 02-图片生成核心流程]: onStatusUpdate 使用具名 handler，确保 removeListener 能正确取消订阅
 
 ### Pending Todos
 
@@ -81,6 +83,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T17:08:14.084Z
-Stopped at: Completed 01-02-PLAN.md
+Last session: 2026-03-19T17:08:39.741Z
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None
