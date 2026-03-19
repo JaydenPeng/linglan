@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { registerVideoHandlers } from './ipc/videoHandlers'
+import { registerConfigHandlers } from './ipc/configHandlers'
 
 function createWindow(): void {
   const win = new BrowserWindow({
@@ -22,6 +23,7 @@ function createWindow(): void {
 }
 
 app.whenReady().then(() => {
+  registerConfigHandlers()  // IPC 处理器在 app.whenReady 后注册（safeStorage 需要 app 就绪）
   registerVideoHandlers(ipcMain)
   createWindow()
   app.on('activate', () => {
