@@ -30,4 +30,5 @@ export const IPC_CHANNELS = {
   IMAGE_SUBMIT: 'image:submit',
   IMAGE_CANCEL: 'image:cancel',
   IMAGE_STATUS_UPDATE: 'image:status-update',  // 主进程推送给渲染进程
+  IMAGE_DOWNLOAD: 'image:download',            // 下载图片到本地
 } as const

@@ -27,6 +27,9 @@ const imageApi = {
   cancel: (localId: string): Promise<void> =>
     ipcRenderer.invoke(IPC_CHANNELS.IMAGE_CANCEL, localId),
 
+  download: (url: string): Promise<{ ok: boolean; error?: string }> =>
+    ipcRenderer.invoke(IPC_CHANNELS.IMAGE_DOWNLOAD, url),
+
   onStatusUpdate: (cb: (update: { localId: string; patch: object }) => void): (() => void) => {
     const handler = (_event: Electron.IpcRendererEvent, update: { localId: string; patch: object }) => cb(update)
     ipcRenderer.on(IPC_CHANNELS.IMAGE_STATUS_UPDATE, handler)
@@ -44,6 +47,7 @@ declare global {
     imageApi: {
       submit: (localId: string, params: ImageParams) => Promise<{ jobId: string }>
       cancel: (localId: string) => Promise<void>
+      download: (url: string) => Promise<{ ok: boolean; error?: string }>
       onStatusUpdate: (cb: (update: { localId: string; patch: object }) => void) => () => void
     }
   }

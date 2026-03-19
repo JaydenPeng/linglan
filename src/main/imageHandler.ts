@@ -1,5 +1,7 @@
-import { ipcMain, BrowserWindow } from 'electron'
+import { ipcMain, BrowserWindow, dialog, shell } from 'electron'
 import * as https from 'https'
+import * as fs from 'fs'
+import * as path from 'path'
 import type { ImageParams } from '../types/image'
 import { IPC_CHANNELS, TaskStatus } from '../types/image'
 import { signRequest } from './api/hmacSigner'
@@ -171,5 +173,34 @@ export function registerImageHandlers(win: BrowserWindow): void {
       localId,
       patch: { status: TaskStatus.CANCELLED },
     })
+  })
+
+  // 下载图片到本地：弹出保存对话框，下载 URL 内容并写入文件
+  ipcMain.handle(IPC_CHANNELS.IMAGE_DOWNLOAD, async (_event, url: string): Promise<{ ok: boolean; error?: string }> => {
+    try {
+      const ext = url.includes('.png') ? 'png' : 'jpg'
+      const defaultName = `linglan_${Date.now()}.${ext}`
+      const { filePath, canceled } = await dialog.showSaveDialog(win, {
+        defaultPath: defaultName,
+        filters: [{ name: '图片', extensions: ['jpg', 'png', 'webp'] }],
+      })
+      if (canceled || !filePath) return { ok: false }
+
+      const buffer = await new Promise<Buffer>((resolve, reject) => {
+        https.get(url, (res) => {
+          const chunks: Buffer[] = []
+          res.on('data', (chunk: Buffer) => chunks.push(chunk))
+          res.on('end', () => resolve(Buffer.concat(chunks)))
+          res.on('error', reject)
+        }).on('error', reject)
+      })
+
+      fs.writeFileSync(filePath, buffer)
+      // 下载完成后在文件管理器中高亮显示
+      shell.showItemInFolder(filePath)
+      return { ok: true }
+    } catch (err) {
+      return { ok: false, error: err instanceof Error ? err.message : String(err) }
+    }
   })
 }
