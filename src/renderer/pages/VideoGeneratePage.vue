@@ -8,8 +8,15 @@
         placeholder="描述你想生成的视频..."
         rows="3"
       />
-      <button class="template-btn" type="button" @click="onTemplateClick">从模板选择</button>
+      <button class="template-btn" type="button" @click="templatePanelOpen = true">从模板选择</button>
     </div>
+
+    <!-- 提示词模板面板 -->
+    <PromptTemplatePanel
+      :is-open="templatePanelOpen"
+      @close="templatePanelOpen = false"
+      @select="onTemplateSelect"
+    />
 
     <!-- 参数表单 -->
     <VideoParamsForm v-model="params" />
@@ -39,14 +46,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useVideoTaskStore } from '../store/videoTaskStore'
 import VideoParamsForm from '../components/VideoParamsForm.vue'
 import VideoTaskCard from '../components/VideoTaskCard.vue'
+import PromptTemplatePanel from '../components/PromptTemplatePanel.vue'
 import type { VideoSubmitParams } from '@shared/types/video'
 
 const videoStore = useVideoTaskStore()
 const prompt = ref('')
+const templatePanelOpen = ref(false)
 
 const params = reactive<VideoSubmitParams>({
   prompt: '',
@@ -55,13 +64,21 @@ const params = reactive<VideoSubmitParams>({
   mode: 'std',
 })
 
+onMounted(() => {
+  const reuse = sessionStorage.getItem('linglan-reuse-prompt')
+  if (reuse) {
+    prompt.value = reuse
+    sessionStorage.removeItem('linglan-reuse-prompt')
+  }
+})
+
 async function submit() {
   if (!prompt.value.trim() || videoStore.submitting) return
   await videoStore.submitTask({ ...params, prompt: prompt.value.trim() })
 }
 
-function onTemplateClick() {
-  // Plan 04 接入模板选择
+function onTemplateSelect(content: string) {
+  prompt.value = content
 }
 </script>
 
