@@ -2,8 +2,9 @@ import { app, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { registerVideoHandlers } from './ipc/videoHandlers'
 import { registerConfigHandlers } from './ipc/configHandlers'
+import { registerImageHandlers } from './imageHandler'
 
-function createWindow(): void {
+function createWindow(): BrowserWindow {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -20,12 +21,15 @@ function createWindow(): void {
   } else {
     win.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  return win
 }
 
 app.whenReady().then(() => {
   registerConfigHandlers()  // IPC 处理器在 app.whenReady 后注册（safeStorage 需要 app 就绪）
   registerVideoHandlers(ipcMain)
-  createWindow()
+  const win = createWindow()
+  registerImageHandlers(win)
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
