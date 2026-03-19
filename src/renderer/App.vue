@@ -18,6 +18,7 @@
     <main class="page-content">
       <Settings v-if="activeTab === 'settings'" />
       <VideoGeneratePage v-else-if="activeTab === 'video'" />
+      <HistoryPage v-else-if="activeTab === 'history'" />
     </main>
   </div>
 </template>
@@ -26,11 +27,13 @@
 import { ref } from 'vue'
 import Settings from './pages/Settings.vue'
 import VideoGeneratePage from './pages/VideoGeneratePage.vue'
+import HistoryPage from './pages/HistoryPage.vue'
 
-const activeTab = ref<'settings' | 'video'>('video')
+const activeTab = ref<'settings' | 'video' | 'history'>('video')
 
 const tabs = [
   { id: 'video' as const, label: '视频', icon: '🎬' },
+  { id: 'history' as const, label: '历史', icon: '🕐' },
   { id: 'settings' as const, label: '设置', icon: '⚙️' },
 ]
 </script>
