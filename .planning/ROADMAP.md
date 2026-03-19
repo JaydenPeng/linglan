@@ -56,7 +56,13 @@ Plans:
   2. 用户可以使用多镜头模式（multi_shot）生成视频，任务完成后可在线播放视频
   3. 用户可以查看历史生成记录列表，从历史记录复用提示词重新发起任务，收藏或删除记录
   4. 用户可以从内置提示词模板库选择模板，自由输入提示词，并保存自定义模板
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — 可灵 Omni-Video API 主进程封装（IPC handlers + API + 类型定义）
+- [ ] 03-02-PLAN.md — 历史记录 store + 提示词模板 store（数据层 + 内置模板）
+- [ ] 03-03-PLAN.md — 视频生成表单 UI + 嵌入播放器（依赖 03-01）
+- [ ] 03-04-PLAN.md — 历史记录列表 UI + 提示词模板面板（依赖 03-02）
 
 ### Phase 4: 移动端适配
 **Goal**: 应用可打包为 iOS 和 Android 原生应用，移动端文件下载和网络请求正常工作
@@ -77,5 +83,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. 基础设施与设计文档 | 0/3 | Not started | - |
 | 2. 图片生成核心流程 | 0/TBD | Not started | - |
-| 3. 视频生成与体验完善 | 0/TBD | Not started | - |
+| 3. 视频生成与体验完善 | 0/4 | Not started | - |
 | 4. 移动端适配 | 0/TBD | Not started | - |
