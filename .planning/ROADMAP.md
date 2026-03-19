@@ -89,6 +89,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. 基础设施与设计文档 | 3/3 | Complete   | 2026-03-19 |
-| 2. 图片生成核心流程 | 1/5 | In Progress|  |
+| 2. 图片生成核心流程 | 3/5 | In Progress|  |
 | 3. 视频生成与体验完善 | 1/4 | In Progress | - |
 | 4. 移动端适配 | 0/TBD | Not started | - |
