@@ -4,7 +4,7 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Completed 02-04-PLAN.md
-last_updated: "2026-03-19T17:12:34.958Z"
+last_updated: "2026-03-19T17:12:45.743Z"
 last_activity: 2026-03-20 — Plan 03-01 complete, Kling Omni-Video API + IPC handlers
 progress:
   total_phases: 4
@@ -56,6 +56,7 @@ Progress: [███░░░░░░░] 33%
 | Phase 01 P03 | 10 | 2 tasks | 6 files |
 | Phase 02-图片生成核心流程 P03 | 5 | 2 tasks | 2 files |
 | Phase 02-图片生成核心流程 P04 | 2 | 2 tasks | 3 files |
+| Phase 01-基础设施与设计文档 P03 | 10 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,8 @@ Recent decisions affecting current work:
 - [Phase 01]: jwtSigner 使用 Node.js crypto 而非 jose，避免 vitest node 环境中 Uint8Array 跨 realm instanceof 失败
 - [Phase 02-图片生成核心流程]: ImageParamsPanel 使用 v-model 双向绑定，taskStore.addTask 先于 API 调用确保本地状态立即可见
 - [Phase 02-04]: ImagePreviewModal.vue 创建为占位组件，Plan 05 替换完整实现，避免编译错误
+- [Phase 01-基础设施与设计文档]: jwtSigner 使用 Node.js crypto 而非 jose，避免 vitest node 环境中 Uint8Array 跨 realm instanceof 失败
+- [Phase 01-基础设施与设计文档]: vitest.config 为 src/main/**/*.test.ts 指定 node 环境，避免 jsdom 干扰主进程测试
 
 ### Pending Todos
 
