@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-03-20T01:24:00.000Z"
-last_activity: 2026-03-20 — Plan 03-03 complete, 视频生成 UI 层
+stopped_at: Completed 03-04-PLAN.md
+last_updated: "2026-03-20T17:30:00.000Z"
+last_activity: 2026-03-20 — Plan 03-04 complete, 历史记录与提示词模板 UI
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 14
-  completed_plans: 11
-  percent: 79
+  completed_plans: 12
+  percent: 86
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 ## Current Position
 
 Phase: 3 of 4 (视频生成与体验完善)
-Plan: 3 of 3 in current phase
+Plan: 4 of 4 in current phase
 Status: In progress
-Last activity: 2026-03-20 — Plan 03-03 complete, 视频生成 UI 层
+Last activity: 2026-03-20 — Plan 03-04 complete, 历史记录与提示词模板 UI
 
-Progress: [████████░░] 79%
+Progress: [█████████░] 86%
 
 ## Performance Metrics
 
@@ -59,7 +59,7 @@ Progress: [████████░░] 79%
 | Phase 01-基础设施与设计文档 P03 | 10 | 2 tasks | 6 files |
 | Phase 03-视频生成与体验完善 P02 | 4 | 2 tasks | 8 files |
 | Phase 02-图片生成核心流程 P05 | 3 | 1 tasks | 4 files |
-| Phase 03-视频生成与体验完善 P03 | 15 | 2 tasks | 8 files |
+| Phase 03-视频生成与体验完善 P04 | 8 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -92,6 +92,9 @@ Recent decisions affecting current work:
 - [Phase 03-03]: 项目无 Ionic 依赖，所有 UI 组件使用原生 HTML + CSS 实现，与现有 Settings.vue 风格一致
 - [Phase 03-03]: App.vue 改为 Tab Bar 导航（视频/设置），默认显示视频页，无需引入 vue-router
 - [Phase 03-03]: ipcClient.ts 补充 ipcRenderer.invoke 重载类型，覆盖 video:submit / video:poll / image:download
+- [Phase 03-04]: 左滑操作使用原生 touch/mouse 事件实现，无需 Ionic/第三方库
+- [Phase 03-04]: 复用提示词通过 sessionStorage 传递，HistoryPage 写入，VideoGeneratePage onMounted 读取并清除
+- [Phase 03-04]: PromptTemplatePanel 使用 position:fixed 遮罩 + flex-end 实现底部半屏效果，无需 IonModal
 
 ### Pending Todos
 
@@ -104,6 +107,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T17:18:56.006Z
-Stopped at: Completed 02-05-PLAN.md
+Last session: 2026-03-20T17:30:00.000Z
+Stopped at: Completed 03-04-PLAN.md
 Resume file: None
