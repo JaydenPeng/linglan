@@ -1,5 +1,6 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
+import { registerVideoHandlers } from './ipc/videoHandlers'
 
 function createWindow(): void {
   const win = new BrowserWindow({
@@ -21,6 +22,7 @@ function createWindow(): void {
 }
 
 app.whenReady().then(() => {
+  registerVideoHandlers(ipcMain)
   createWindow()
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
