@@ -2,8 +2,8 @@
 phase: 4
 slug: 移动端适配
 status: draft
-nyquist_compliant: false
-wave_0_complete: false
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-03-20
 ---
 
@@ -45,6 +45,7 @@ created: 2026-03-20
 | 4-01-05 | 01 | 0 | MOB-01/02 | unit | `npm run test -- src/services/downloadService` | ❌ Wave 0 | ⬜ pending |
 | 4-02-01 | 02 | 1 | MOB-01 | manual | Xcode 构建 + 真机运行 | manual-only | ⬜ pending |
 | 4-02-02 | 02 | 1 | MOB-02 | manual | Android Studio 构建 + 真机运行 | manual-only | ⬜ pending |
+| 4-03-01 | 03 | 2 | MOB-01/02 | unit | `npm run test -- src/renderer/store` | ✅ Wave 2 | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
