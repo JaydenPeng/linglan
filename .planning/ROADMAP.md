@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: 基础设施与设计文档** - 建立项目骨架、API 鉴权架构、密钥配置，输出 UI 和技术设计文档 (completed 2026-03-19)
 - [x] **Phase 2: 图片生成核心流程** - 跑通文生图/图生图完整链路：提交任务、轮询状态、预览下载 (completed 2026-03-20)
-- [x] **Phase 3: 视频生成与体验完善** - 扩展文生视频能力，补充历史记录和提示词模板体验 (completed 2026-03-19)
+- [ ] **Phase 3: 视频生成与体验完善** - 扩展文生视频能力，补充历史记录和提示词模板体验
 - [ ] **Phase 4: 移动端适配** - 打包为 iOS/Android 原生应用，处理移动端文件系统和网络适配
 
 ## Phase Details
@@ -63,13 +63,15 @@ Plans:
   2. 用户可以使用多镜头模式（multi_shot）生成视频，任务完成后可在线播放视频
   3. 用户可以查看历史生成记录列表，从历史记录复用提示词重新发起任务，收藏或删除记录
   4. 用户可以从内置提示词模板库选择模板，自由输入提示词，并保存自定义模板
-**Plans**: 4 plans
+**Plans**: 6 plans
 
 Plans:
 - [x] 03-01-PLAN.md — 可灵 Omni-Video API 主进程封装（IPC handlers + API + 类型定义）
 - [x] 03-02-PLAN.md — 历史记录 store + 提示词模板 store（数据层 + 内置模板）
 - [x] 03-03-PLAN.md — 视频生成表单 UI + 嵌入播放器（依赖 03-01）
 - [ ] 03-04-PLAN.md — 历史记录列表 UI + 提示词模板面板（依赖 03-02）
+- [ ] 03-05-PLAN.md — [gap] 复用提示词自动跳转 Tab（uiStore + HistoryPage 修复）
+- [ ] 03-06-PLAN.md — [gap/deferred] PromptTemplatePanel 接入 ImageGeneratePage（待 Phase 2 完成）
 
 ### Phase 4: 移动端适配
 **Goal**: 应用可打包为 iOS 和 Android 原生应用，移动端文件下载和网络请求正常工作
@@ -95,5 +97,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. 基础设施与设计文档 | 3/3 | Complete   | 2026-03-19 |
 | 2. 图片生成核心流程 | 6/6 | Complete   | 2026-03-20 |
-| 3. 视频生成与体验完善 | 4/4 | Complete   | 2026-03-19 |
+| 3. 视频生成与体验完善 | 4/6 | In progress | - |
 | 4. 移动端适配 | 0/3 | Not started | - |
