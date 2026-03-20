@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import type { ImageParams } from '../types/image'
+import type { ImageParams } from '../../types/image'
 
 const props = defineProps<{ modelValue: Partial<ImageParams> }>()
 const emit = defineEmits<{ 'update:modelValue': [value: Partial<ImageParams>] }>()

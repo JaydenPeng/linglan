@@ -54,9 +54,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useTaskStore } from '../stores/taskStore'
-import { TaskStatus, TaskType } from '../types/image'
-import type { ImageParams, ImageTask } from '../types/image'
+import { useTaskStore } from '../../stores/taskStore'
+import { TaskStatus, TaskType } from '../../types/image'
+import type { ImageParams, ImageTask } from '../../types/image'
 import ImageParamsPanel from '../components/ImageParamsPanel.vue'
 
 const emit = defineEmits<{ navigate: [tab: string] }>()

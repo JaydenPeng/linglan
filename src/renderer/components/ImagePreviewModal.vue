@@ -69,7 +69,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import type { ImageTask } from '../types/image'
+import type { ImageTask } from '../../types/image'
 
 const props = defineProps<{ task: ImageTask; initialIndex: number }>()
 const emit = defineEmits<{ close: [] }>()

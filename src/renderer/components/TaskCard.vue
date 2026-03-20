@@ -44,8 +44,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { TaskStatus } from '../types/image'
-import type { ImageTask } from '../types/image'
+import { TaskStatus } from '../../types/image'
+import type { ImageTask } from '../../types/image'
 
 const props = defineProps<{ task: ImageTask }>()
 defineEmits<{

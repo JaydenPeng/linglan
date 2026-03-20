@@ -18,6 +18,8 @@
     <main class="page-content">
       <Settings v-if="activeTab === 'settings'" />
       <VideoGeneratePage v-else-if="activeTab === 'video'" />
+      <CreatePage v-else-if="activeTab === 'create'" @navigate="onNavigate" />
+      <TaskListPage v-else-if="activeTab === 'tasks'" />
       <HistoryPage v-else-if="activeTab === 'history'" />
     </main>
   </div>
@@ -28,11 +30,21 @@ import { ref } from 'vue'
 import Settings from './pages/Settings.vue'
 import VideoGeneratePage from './pages/VideoGeneratePage.vue'
 import HistoryPage from './pages/HistoryPage.vue'
+import CreatePage from './pages/CreatePage.vue'
+import TaskListPage from './pages/TaskListPage.vue'
 
-const activeTab = ref<'settings' | 'video' | 'history'>('video')
+const activeTab = ref<'settings' | 'video' | 'create' | 'tasks' | 'history'>('video')
+
+type TabId = typeof activeTab.value
+
+function onNavigate(tab: string) {
+  activeTab.value = tab as TabId
+}
 
 const tabs = [
   { id: 'video' as const, label: '视频', icon: '🎬' },
+  { id: 'create' as const, label: '图片', icon: '🖼️' },
+  { id: 'tasks' as const, label: '任务', icon: '📋' },
   { id: 'history' as const, label: '历史', icon: '🕐' },
   { id: 'settings' as const, label: '设置', icon: '⚙️' },
 ]
