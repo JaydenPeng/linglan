@@ -13,7 +13,7 @@
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: 基础设施与设计文档** - 建立项目骨架、API 鉴权架构、密钥配置，输出 UI 和技术设计文档 (completed 2026-03-19)
-- [ ] **Phase 2: 图片生成核心流程** - 跑通文生图/图生图完整链路：提交任务、轮询状态、预览下载
+- [x] **Phase 2: 图片生成核心流程** - 跑通文生图/图生图完整链路：提交任务、轮询状态、预览下载 (completed 2026-03-20)
 - [x] **Phase 3: 视频生成与体验完善** - 扩展文生视频能力，补充历史记录和提示词模板体验 (completed 2026-03-19)
 - [ ] **Phase 4: 移动端适配** - 打包为 iOS/Android 原生应用，处理移动端文件系统和网络适配
 
@@ -94,6 +94,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. 基础设施与设计文档 | 3/3 | Complete   | 2026-03-19 |
-| 2. 图片生成核心流程 | 3/5 | In Progress|  |
+| 2. 图片生成核心流程 | 6/6 | Complete   | 2026-03-20 |
 | 3. 视频生成与体验完善 | 4/4 | Complete   | 2026-03-19 |
 | 4. 移动端适配 | 0/3 | Not started | - |

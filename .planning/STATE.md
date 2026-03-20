@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-04-PLAN.md
-last_updated: "2026-03-20T17:30:00.000Z"
-last_activity: 2026-03-20 — Plan 03-04 complete, 历史记录与提示词模板 UI
+stopped_at: Completed 02-06-PLAN.md
+last_updated: "2026-03-20T18:00:00.000Z"
+last_activity: 2026-03-20 — Plan 02-06 complete, 图片生成 UI 接入 App.vue Tab 导航
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 14
-  completed_plans: 12
-  percent: 86
+  completed_plans: 13
+  percent: 93
 ---
 
 # Project State
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 
 ## Current Position
 
-Phase: 3 of 4 (视频生成与体验完善)
-Plan: 4 of 4 in current phase
-Status: In progress
-Last activity: 2026-03-20 — Plan 03-04 complete, 历史记录与提示词模板 UI
+Phase: 2 of 4 (图片生成核心流程)
+Plan: 6 of 6 in current phase
+Status: Complete
+Last activity: 2026-03-20 — Plan 02-06 complete, 图片生成 UI 接入 App.vue Tab 导航
 
 Progress: [█████████░] 86%
 
@@ -59,7 +59,7 @@ Progress: [█████████░] 86%
 | Phase 01-基础设施与设计文档 P03 | 10 | 2 tasks | 6 files |
 | Phase 03-视频生成与体验完善 P02 | 4 | 2 tasks | 8 files |
 | Phase 02-图片生成核心流程 P05 | 3 | 1 tasks | 4 files |
-| Phase 03-视频生成与体验完善 P04 | 8 | 2 tasks | 5 files |
+| Phase 02-图片生成核心流程 P06 | 25 | 2 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -95,6 +95,10 @@ Recent decisions affecting current work:
 - [Phase 03-04]: 左滑操作使用原生 touch/mouse 事件实现，无需 Ionic/第三方库
 - [Phase 03-04]: 复用提示词通过 sessionStorage 传递，HistoryPage 写入，VideoGeneratePage onMounted 读取并清除
 - [Phase 03-04]: PromptTemplatePanel 使用 position:fixed 遮罩 + flex-end 实现底部半屏效果，无需 IonModal
+- [02-06]: 将 CreateView/TaskListView 迁移到 src/renderer/pages/ 以纳入 tsconfig.web.json 的 include 范围
+- [02-06]: 新增 src/renderer/types/imageApi.d.ts 声明 window.imageApi 类型，避免 TS2339 错误
+- [02-06]: tsconfig.web.json include 扩展覆盖 src/types 和 src/stores，支持跨目录类型引用
+- [02-06]: CreatePage 用 emit('navigate', 'tasks') 替代 router.push('/tasks')，App.vue 监听切换 activeTab
 
 ### Pending Todos
 
@@ -107,6 +111,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T17:30:00.000Z
-Stopped at: Completed 03-04-PLAN.md
+Last session: 2026-03-20T18:00:00.000Z
+Stopped at: Completed 02-06-PLAN.md
 Resume file: None
