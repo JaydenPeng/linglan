@@ -26,6 +26,14 @@
       placeholder="描述你想生成的图片..."
       rows="4"
     />
+    <button class="template-btn" type="button" @click="templatePanelOpen = true">从模板选择</button>
+
+    <!-- 提示词模板面板 -->
+    <PromptTemplatePanel
+      :is-open="templatePanelOpen"
+      @close="templatePanelOpen = false"
+      @select="onTemplateSelect"
+    />
 
     <!-- 图生图：参考图上传 -->
     <div v-if="activeTab === 'img2img'" class="ref-image-area" @click="pickRefImage">
@@ -58,6 +66,7 @@ import { useTaskStore } from '../../stores/taskStore'
 import { TaskStatus, TaskType } from '../../types/image'
 import type { ImageParams, ImageTask } from '../../types/image'
 import ImageParamsPanel from '../components/ImageParamsPanel.vue'
+import PromptTemplatePanel from '../components/PromptTemplatePanel.vue'
 
 const emit = defineEmits<{ navigate: [tab: string] }>()
 
@@ -65,10 +74,16 @@ const taskStore = useTaskStore()
 
 const activeTab = ref<'text2img' | 'img2img'>('text2img')
 const prompt = ref('')
+const templatePanelOpen = ref(false)
 const refImageBase64 = ref<string>('')
 const refImagePreview = ref<string>('')
 const imageParams = ref<Partial<ImageParams>>({ aspect_ratio: '1:1', force_single: false })
 const submitting = ref(false)
+
+function onTemplateSelect(content: string) {
+  prompt.value = content
+  templatePanelOpen.value = false
+}
 
 async function pickRefImage() {
   const input = document.createElement('input')
@@ -171,6 +186,17 @@ async function handleSubmit() {
   font-family: inherit;
 }
 .prompt-input:focus { outline: none; border-color: #6c63ff; }
+.template-btn {
+  align-self: flex-start;
+  background: none;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #888;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.template-btn:hover { border-color: #6c63ff; color: #a89fff; }
 .ref-image-area {
   border: 2px dashed #333;
   border-radius: 12px;
