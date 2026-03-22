@@ -8,7 +8,9 @@
     "build": "electron-vite build",
     "preview": "electron-vite preview",
     "test": "vitest --run",
-    "test:unit": "vitest --run --reporter=verbose"
+    "test:unit": "vitest --run --reporter=verbose",
+    "build:mobile": "vite build --config vite.mobile.config.ts",
+    "cap:sync": "npm run build:mobile && npx cap sync"
   },
   "author": "pencil",
   "license": "ISC",
@@ -29,6 +31,10 @@
     "vue-tsc": "^3.2.6"
   },
   "dependencies": {
+    "@capacitor/android": "^8.2.0",
+    "@capacitor/cli": "^8.2.0",
+    "@capacitor/core": "^8.2.0",
+    "@capacitor/ios": "^8.2.0",
     "@ionic/vue": "^8.8.1",
     "crypto-js": "^4.2.0",
     "electron-store": "^11.0.2",
