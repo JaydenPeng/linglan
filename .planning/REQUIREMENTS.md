@@ -54,8 +54,8 @@
 
 ### Mobile（移动端）
 
-- [ ] **MOB-01**: 应用可打包为 iOS 原生应用（通过 Capacitor）
-- [ ] **MOB-02**: 应用可打包为 Android 原生应用（通过 Capacitor）
+- [x] **MOB-01**: 应用可打包为 iOS 原生应用（通过 Capacitor）
+- [x] **MOB-02**: 应用可打包为 Android 原生应用（通过 Capacitor）
 
 ### Design Docs（设计文档）
 
