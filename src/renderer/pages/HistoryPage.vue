@@ -24,28 +24,24 @@
       />
       <div v-if="displayRecords.length === 0" class="empty-hint">暂无记录</div>
     </div>
-
-    <!-- 复用提示词确认提示 -->
-    <div v-if="reuseToast" class="toast">提示词已复制，请前往生成页面使用</div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useHistoryStore } from '../store/historyStore'
+import { useUiStore } from '../store/uiStore'
 import HistoryItem from '../components/HistoryItem.vue'
 
 const historyStore = useHistoryStore()
+const uiStore = useUiStore()
 const filter = ref<'all' | 'favorite'>('all')
-const reuseToast = ref(false)
 
 const displayRecords = computed(() => historyStore.filteredRecords(filter.value))
 
 function onReusePrompt(prompt: string) {
-  // 将提示词存入 sessionStorage，生成页面可读取
   sessionStorage.setItem('linglan-reuse-prompt', prompt)
-  reuseToast.value = true
-  setTimeout(() => { reuseToast.value = false }, 2500)
+  uiStore.switchTab('video')
 }
 </script>
 
@@ -83,18 +79,5 @@ function onReusePrompt(prompt: string) {
   color: #555;
   font-size: 13px;
   padding: 40px 0;
-}
-.toast {
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(108, 99, 255, 0.9);
-  color: #fff;
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-size: 13px;
-  z-index: 200;
-  pointer-events: none;
 }
 </style>
