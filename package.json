@@ -13,6 +13,9 @@
   "author": "pencil",
   "license": "ISC",
   "devDependencies": {
+    "@capacitor-community/http": "^1.4.1",
+    "@capacitor/filesystem": "^8.1.2",
+    "@capacitor/preferences": "^8.0.1",
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^25.5.0",
     "@vitejs/plugin-vue": "^6.0.5",
