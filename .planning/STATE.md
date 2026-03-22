@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Completed 03-06-PLAN.md
-last_updated: "2026-03-22T02:16:00.165Z"
-last_activity: 2026-03-20 — Plan 02-06 complete, 图片生成 UI 接入 App.vue Tab 导航
+status: in-progress
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-22T05:28:51.486Z"
+last_activity: 2026-03-22 — Plan 04-01 complete, 移动端共享服务层建立完成
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 18
-  completed_plans: 15
-  percent: 86
+  completed_plans: 16
+  percent: 89
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-19)
 
 **Core value:** 用户能够通过提示词模板或自由输入，快速发起 AI 生图/生视频任务，并在任务完成后查看、下载结果
-**Current focus:** Phase 3 - 视频生成与体验完善
+**Current focus:** Phase 4 - 移动端适配
 
 ## Current Position
 
-Phase: 2 of 4 (图片生成核心流程)
-Plan: 6 of 6 in current phase
-Status: Complete
-Last activity: 2026-03-20 — Plan 02-06 complete, 图片生成 UI 接入 App.vue Tab 导航
+Phase: 4 of 4 (移动端适配)
+Plan: 1 of 3 in current phase
+Status: In Progress
+Last activity: 2026-03-22 — Plan 04-01 complete, 移动端共享服务层建立完成
 
-Progress: [█████████░] 86%
+Progress: [█████████░] 89%
 
 ## Performance Metrics
 
@@ -62,6 +62,7 @@ Progress: [█████████░] 86%
 | Phase 02-图片生成核心流程 P06 | 25 | 2 tasks | 12 files |
 | Phase 03-视频生成与体验完善 P05 | 10 | 3 tasks | 3 files |
 | Phase 03 P06 | 5 | 1 tasks | 1 files |
+| Phase 04 P01 | 6 | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -102,6 +103,9 @@ Recent decisions affecting current work:
 - [02-06]: tsconfig.web.json include 扩展覆盖 src/types 和 src/stores，支持跨目录类型引用
 - [02-06]: CreatePage 用 emit('navigate', 'tasks') 替代 router.push('/tasks')，App.vue 监听切换 activeTab
 - [Phase 03]: CreatePage.vue 作为图片生成页（Phase 2 未创建 ImageGeneratePage.vue），PromptTemplatePanel 接入 CreatePage 而非新文件
+- [Phase 04]: 使用 crypto-js 在浏览器环境复现 Node.js crypto 的 HMAC-SHA256 和 JWT HS256 签名逻辑
+- [Phase 04]: storageService 专为 Capacitor 路径设计，Electron 路径继续走 IPC
+- [Phase 04]: downloadService 通过 isCapacitor() 判断使用 Filesystem API 或 <a> 标签下载
 
 ### Pending Todos
 
@@ -114,6 +118,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T02:16:00.161Z
-Stopped at: Completed 03-06-PLAN.md
+Last session: 2026-03-22T05:28:51.479Z
+Stopped at: Completed 04-01-PLAN.md
 Resume file: None
