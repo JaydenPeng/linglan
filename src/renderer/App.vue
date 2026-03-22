@@ -26,19 +26,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import Settings from './pages/Settings.vue'
 import VideoGeneratePage from './pages/VideoGeneratePage.vue'
 import HistoryPage from './pages/HistoryPage.vue'
 import CreatePage from './pages/CreatePage.vue'
 import TaskListPage from './pages/TaskListPage.vue'
+import { useUiStore, type TabId } from './store/uiStore'
 
-const activeTab = ref<'settings' | 'video' | 'create' | 'tasks' | 'history'>('video')
-
-type TabId = typeof activeTab.value
+const uiStore = useUiStore()
+const { activeTab } = storeToRefs(uiStore)
 
 function onNavigate(tab: string) {
-  activeTab.value = tab as TabId
+  uiStore.switchTab(tab as TabId)
 }
 
 const tabs = [
