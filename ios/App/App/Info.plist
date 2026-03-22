@@ -47,5 +47,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>需要访问相册以保存生成的图片和视频</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要访问相册以保存生成的图片和视频</string>
 </dict>
 </plist>
