@@ -5,10 +5,28 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
   main: {
-    plugins: [externalizeDepsPlugin({ exclude: ['jose'] })]
+    plugins: [
+      externalizeDepsPlugin({ exclude: ['jose'] }),
+      tsconfigPaths()
+    ],
+    resolve: {
+      alias: {
+        '@shared': resolve(__dirname, 'src/shared'),
+        '@renderer': resolve(__dirname, 'src/renderer')
+      }
+    }
   },
   preload: {
-    plugins: [externalizeDepsPlugin()]
+    plugins: [
+      externalizeDepsPlugin(),
+      tsconfigPaths()
+    ],
+    resolve: {
+      alias: {
+        '@shared': resolve(__dirname, 'src/shared'),
+        '@renderer': resolve(__dirname, 'src/renderer')
+      }
+    }
   },
   renderer: {
     plugins: [
