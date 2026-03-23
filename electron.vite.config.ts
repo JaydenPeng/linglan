@@ -1,6 +1,7 @@
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
   main: {
@@ -10,7 +11,10 @@ export default defineConfig({
     plugins: [externalizeDepsPlugin()]
   },
   renderer: {
-    plugins: [vue()],
+    plugins: [
+      vue(),
+      tsconfigPaths()
+    ],
     resolve: {
       alias: {
         '@shared': resolve(__dirname, 'src/shared'),
