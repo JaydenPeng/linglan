@@ -79,20 +79,17 @@
             "x64"
           ]
         }
-      ],
-      "icon": "build/icon.ico"
+      ]
     },
     "mac": {
       "target": [
         "dmg"
-      ],
-      "icon": "build/icon.icns"
+      ]
     },
     "linux": {
       "target": [
         "AppImage"
-      ],
-      "icon": "build/icon.png"
+      ]
     }
   }
 }
