@@ -13,8 +13,10 @@ export default defineConfig({
     plugins: [vue()],
     resolve: {
       alias: {
-        '@shared': resolve(__dirname, 'src/shared')
-      }
+        '@shared': resolve(__dirname, 'src/shared'),
+        '@renderer': resolve(__dirname, 'src/renderer')
+      },
+      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
     }
   }
 })
