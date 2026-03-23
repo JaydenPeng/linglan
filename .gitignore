@@ -3,3 +3,5 @@ out/
 dist/
 *.local
 .env
+.claude/
+out-linglan-win32-x64/
