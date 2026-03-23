@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { BUILTIN_TEMPLATES } from '@shared/types/promptTemplate'
-import type { PromptTemplate, PromptCategory } from '@shared/types/promptTemplate'
+import { BUILTIN_TEMPLATES } from '@shared/types/promptTemplate.ts'
+import type { PromptTemplate, PromptCategory } from '@shared/types/promptTemplate.ts'
 
 export const usePromptTemplateStore = defineStore('promptTemplates', () => {
   const customTemplates = ref<PromptTemplate[]>([])

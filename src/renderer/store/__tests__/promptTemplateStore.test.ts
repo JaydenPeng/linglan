@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { usePromptTemplateStore } from '../promptTemplateStore'
-import { BUILTIN_TEMPLATES } from '@shared/types/promptTemplate'
+import { BUILTIN_TEMPLATES } from '@shared/types/promptTemplate.ts'
 
 describe('promptTemplateStore', () => {
   beforeEach(() => {

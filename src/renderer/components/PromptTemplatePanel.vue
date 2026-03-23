@@ -98,7 +98,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { usePromptTemplateStore } from '../store/promptTemplateStore'
-import type { PromptCategory } from '@shared/types/promptTemplate'
+import type { PromptCategory } from '@shared/types/promptTemplate.ts'
 
 defineProps<{ isOpen: boolean }>()
 const emit = defineEmits<{

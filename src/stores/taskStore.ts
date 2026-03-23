@@ -21,10 +21,23 @@ export const useTaskStore = defineStore('task', () => {
     updateTask(id, { status: TaskStatus.CANCELLED })
   }
 
+  function toggleFavorite(id: string) {
+    const idx = tasks.value.findIndex(t => t.id === id)
+    if (idx !== -1) {
+      tasks.value[idx] = {
+        ...tasks.value[idx],
+        isFavorite: !tasks.value[idx].isFavorite,
+        updatedAt: Date.now()
+      }
+    }
+  }
+
   // 按状态筛选
   const activeTasks = () => tasks.value.filter(
     t => t.status === TaskStatus.PENDING || t.status === TaskStatus.PROCESSING
   )
 
-  return { tasks, addTask, updateTask, cancelTask, activeTasks }
+  const favoriteTasks = () => tasks.value.filter(t => t.isFavorite)
+
+  return { tasks, addTask, updateTask, cancelTask, toggleFavorite, activeTasks, favoriteTasks }
 })

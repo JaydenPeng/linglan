@@ -14,6 +14,22 @@ const MAX_POLL_COUNT = 200 // 10 分钟上限
 // 活跃轮询 Map：localId -> intervalId
 const activePollers = new Map<string, ReturnType<typeof setInterval>>()
 
+// 日志推送辅助（win 可能还未初始化，用可选链）
+let _win: BrowserWindow | null = null
+
+function pushLog(payload: {
+  method: string
+  url: string
+  level: 'info' | 'error'
+  requestBody?: string
+  responseBody?: string
+  statusCode?: number
+  message?: string
+  error?: string
+}) {
+  _win?.webContents.send(IPC_CHANNELS.IMAGE_LOG, payload)
+}
+
 function httpsRequest(options: https.RequestOptions, body?: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const req = https.request(options, (res) => {
@@ -34,9 +50,9 @@ function httpsRequest(options: https.RequestOptions, body?: string): Promise<str
 }
 
 // 提交图片生成任务，返回 job_id
-async function submitImageTask(params: ImageParams): Promise<string> {
-  const ak = getCredentials('jiMengAk')
-  const sk = getCredentials('jiMengSk')
+async function submitImageTask(params: ImageParams): Promise<{ taskId: string; reqKey: string }> {
+  const ak = getCredentials('jimeng_ak')
+  const sk = getCredentials('jimeng_sk')
   if (!ak || !sk) {
     throw new Error('即梦 API 密钥未配置，请在设置中填写 AK/SK')
   }
@@ -46,71 +62,99 @@ async function submitImageTask(params: ImageParams): Promise<string> {
     prompt: params.prompt,
     width: params.width ?? 1024,
     height: params.height ?? 1024,
-    return_url: true, // 必须为 true，否则返回 base64 数据
+    return_url: true,
     ...(params.force_single && { use_sr: false, ddim_steps: 25 }),
     ...(params.ref_image && { binary_data_base64: [params.ref_image] }),
   })
 
   const query = 'Action=CVSync2AsyncSubmitTask&Version=2022-08-31'
-  const path = `/?${query}`
-  const headers = signRequest('POST', path, body, ak, sk)
+  const reqPath = `/?${query}`
+  const headers = signRequest('POST', reqPath, body, ak, sk)
 
-  const raw = await httpsRequest(
-    {
+  const url = `https://${JIMENG_HOST}${reqPath}`
+
+  try {
+    const raw = await httpsRequest(
+      {
+        hostname: JIMENG_HOST,
+        path: reqPath,
+        method: 'POST',
+        headers: {
+          ...headers,
+          'Content-Length': Buffer.byteLength(body),
+        },
+      },
+      body
+    )
+    // const raw = `{"code":10000,"data":{"task_id":"5294140511646776242"},"message":"Success","request_id":"202603222142503BCD7FA620BE186AAFEB","status":10000,"time_elapsed":"155.327601ms"}`
+    const data = JSON.parse(raw)
+    pushLog({ method: 'POST', url, level: 'info', message: '提交图片任务', requestBody: body, responseBody: raw })
+
+    if (data.code !== 10000) {
+      throw new Error(data.message ?? '提交任务失败')
+    }
+    return { taskId: data.data.task_id as string, reqKey: params.ref_image ? 'img2img_xl_sft' : 'high_aes_general_v21_L' }
+  } catch (err) {
+    pushLog({ method: 'POST', url, level: 'error', error: String(err) })
+    throw err
+  }
+}
+
+// 查询任务状态
+async function queryTaskStatus(
+  jobId: string,
+  reqKey: string
+): Promise<{ status: TaskStatus; urls?: string[]; error?: string }> {
+  const ak = getCredentials('jimeng_ak')
+  const sk = getCredentials('jimeng_sk')
+  if (!ak || !sk) {
+    throw new Error('即梦 API 密钥未配置')
+  }
+
+  const query = `Action=CVSync2AsyncGetResult&Version=2022-08-31`
+  const reqPath = `/?${query}`
+  const body = JSON.stringify({
+    req_key: reqKey,
+    task_id: jobId,
+    req_json: JSON.stringify({ return_url: true })
+  })
+  const headers = signRequest('POST', reqPath, body, ak, sk)
+  const url = `https://${JIMENG_HOST}${reqPath}`
+
+  pushLog({ method: 'POST', url, level: 'info', message: `轮询任务状态 task_id=${jobId}` })
+
+  try {
+    const raw = await httpsRequest({
       hostname: JIMENG_HOST,
-      path,
+      path: reqPath,
       method: 'POST',
       headers: {
         ...headers,
         'Content-Length': Buffer.byteLength(body),
       },
-    },
-    body
-  )
+    }, body)
 
-  const data = JSON.parse(raw)
-  if (data.ResponseMetadata?.Error) {
-    throw new Error(data.ResponseMetadata.Error.Message ?? '提交任务失败')
-  }
-  return data.Result.job_id as string
-}
+    const data = JSON.parse(raw)
+    const jobStatus = data.data?.status
 
-// 查询任务状态
-async function queryTaskStatus(
-  jobId: string
-): Promise<{ status: TaskStatus; urls?: string[]; error?: string }> {
-  const ak = getCredentials('jiMengAk')
-  const sk = getCredentials('jiMengSk')
-  if (!ak || !sk) {
-    throw new Error('即梦 API 密钥未配置')
-  }
+    pushLog({ method: 'POST', url, level: 'info', message: `任务状态: ${jobStatus}`, responseBody: raw })
 
-  const query = `Action=CVSync2AsyncGetResult&Version=2022-08-31&job_id=${encodeURIComponent(jobId)}`
-  const path = `/?${query}`
-  const headers = signRequest('GET', path, '', ak, sk)
-
-  const raw = await httpsRequest({
-    hostname: JIMENG_HOST,
-    path,
-    method: 'GET',
-    headers,
-  })
-
-  const data = JSON.parse(raw)
-  const jobStatus = data.Result?.job_status
-
-  if (jobStatus === 'done') {
-    const urls = (data.Result?.images ?? []).map((img: { url: string }) => img.url)
-    return { status: TaskStatus.SUCCESS, urls }
-  } else if (jobStatus === 'failed') {
-    return { status: TaskStatus.FAILED, error: data.Result?.message ?? '生成失败' }
-  } else {
-    return { status: TaskStatus.PROCESSING }
+    if (jobStatus === 'done') {
+      const urls = data.data?.image_urls ?? []
+      return { status: TaskStatus.SUCCESS, urls }
+    } else if (jobStatus === 'failed') {
+      return { status: TaskStatus.FAILED, error: data.message ?? '生成失败' }
+    } else {
+      return { status: TaskStatus.PROCESSING }
+    }
+  } catch (err) {
+    pushLog({ method: 'POST', url, level: 'error', error: String(err) })
+    throw err
   }
 }
 
 // 启动轮询
-function startPolling(localId: string, jobId: string, win: BrowserWindow): void {
+function startPolling(localId: string, jobId: string, reqKey: string, win: BrowserWindow): void {
   let count = 0
   const timer = setInterval(async () => {
     count++
@@ -125,7 +169,7 @@ function startPolling(localId: string, jobId: string, win: BrowserWindow): void 
     }
 
     try {
-      const result = await queryTaskStatus(jobId)
+      const result = await queryTaskStatus(jobId, reqKey)
       if (result.status !== TaskStatus.PROCESSING) {
         clearInterval(timer)
         activePollers.delete(localId)
@@ -148,16 +192,17 @@ function startPolling(localId: string, jobId: string, win: BrowserWindow): void 
 
 // 注册 IPC 处理器（在主进程 ready 后调用）
 export function registerImageHandlers(win: BrowserWindow): void {
+  _win = win
   ipcMain.handle(IPC_CHANNELS.IMAGE_SUBMIT, async (_event, localId: string, params: ImageParams) => {
     try {
-      const jobId = await submitImageTask(params)
+      const { taskId, reqKey } = await submitImageTask(params)
       // 立即推送 PROCESSING 状态
       win.webContents.send(IPC_CHANNELS.IMAGE_STATUS_UPDATE, {
         localId,
-        patch: { status: TaskStatus.PROCESSING, jobId },
+        patch: { status: TaskStatus.PROCESSING, jobId: taskId },
       })
-      startPolling(localId, jobId, win)
-      return { jobId }
+      startPolling(localId, taskId, reqKey, win)
+      return { jobId: taskId }
     } catch (err) {
       return { error: err instanceof Error ? err.message : String(err) }
     }

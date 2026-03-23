@@ -31,7 +31,8 @@ describe('registerVideoHandlers', () => {
     }
 
     const { registerVideoHandlers } = await import('../ipc/videoHandlers')
-    registerVideoHandlers(ipcMain as unknown as Electron.IpcMain)
+    const mockWin = { webContents: { send: vi.fn() } }
+    registerVideoHandlers(ipcMain as unknown as Electron.IpcMain, mockWin as unknown as Electron.BrowserWindow)
   })
 
   it('注册 video:submit 和 video:poll 两个 channel', () => {

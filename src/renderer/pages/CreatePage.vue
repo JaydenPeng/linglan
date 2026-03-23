@@ -128,6 +128,9 @@ async function handleSubmit() {
 
   taskStore.addTask(task)
 
+  // 跳转任务列表
+  emit('navigate', 'taskHistory')
+
   try {
     await window.imageApi.submit(localId, params)
   } catch (err) {
@@ -135,9 +138,6 @@ async function handleSubmit() {
   } finally {
     submitting.value = false
   }
-
-  // 提交后跳转任务列表
-  emit('navigate', 'tasks')
 }
 </script>
 

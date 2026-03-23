@@ -1,11 +1,24 @@
 <template>
-  <div class="task-card">
-    <!-- 状态标签（右上角） -->
-    <div class="status-badge" :class="statusClass">{{ statusLabel }}</div>
+  <div class="task-card-wrapper">
+    <!-- 任务卡片 -->
+    <div class="task-card">
+      <!-- 右上角：收藏按钮 -->
+      <div class="top-right-actions">
+        <button class="favorite-btn" @click.stop="toggleFavorite" type="button">
+          <span class="favorite-icon">{{ task.isFavorite ? '★' : '☆' }}</span>
+        </button>
+      </div>
 
-    <div class="card-content">
+      <div class="card-content">
       <!-- 提示词预览 -->
       <p class="prompt-preview">{{ task.params.prompt }}</p>
+
+      <!-- 请求参数信息 -->
+      <div class="params-info">
+        <span class="param-tag type-tag">图片</span>
+        <span v-if="task.params.aspect_ratio" class="param-tag">{{ task.params.aspect_ratio }}</span>
+        <span v-if="resolutionText" class="param-tag">{{ resolutionText }}</span>
+      </div>
 
       <!-- 处理中：进度条动画 -->
       <div v-if="isActive" class="progress-bar">
@@ -28,7 +41,10 @@
 
       <!-- 操作按钮行 -->
       <div class="actions">
-        <span class="time">{{ timeAgo }}</span>
+        <div class="left-info">
+          <div class="status-badge" :class="statusClass">{{ statusLabel }}</div>
+          <span class="time">{{ timeAgo }}</span>
+        </div>
         <div class="action-btns">
           <button v-if="task.status === TaskStatus.FAILED" class="action-btn retry-btn" type="button" @click="$emit('retry', task)">
             重试
@@ -38,21 +54,27 @@
           </button>
         </div>
       </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { TaskStatus } from '../../types/image'
 import type { ImageTask } from '../../types/image'
 
 const props = defineProps<{ task: ImageTask }>()
-defineEmits<{
+const emit = defineEmits<{
   preview: [{ task: ImageTask; index: number }]
   retry: [task: ImageTask]
   cancel: [task: ImageTask]
+  toggleFavorite: [taskId: string]
 }>()
+
+function toggleFavorite() {
+  emit('toggleFavorite', props.task.id)
+}
 
 const isActive = computed(() =>
   props.task.status === TaskStatus.PENDING || props.task.status === TaskStatus.PROCESSING
@@ -74,6 +96,13 @@ const statusClass = computed(() => ({
   [TaskStatus.CANCELLED]: 'status-cancelled',
 }[props.task.status]))
 
+const resolutionText = computed(() => {
+  const w = props.task.params.width
+  const h = props.task.params.height
+  if (!w || !h) return ''
+  return `${w}×${h}`
+})
+
 const timeAgo = computed(() => {
   const diff = Date.now() - props.task.createdAt
   if (diff < 60000) return '刚刚'
@@ -83,18 +112,54 @@ const timeAgo = computed(() => {
 </script>
 
 <style scoped>
-.task-card {
+.task-card-wrapper {
   position: relative;
   margin: 8px 0;
+  border-radius: 12px;
+}
+
+.task-card {
+  position: relative;
   background: #1a1a1a;
   border: 1px solid #2a2a2a;
   border-radius: 12px;
   overflow: hidden;
 }
-.status-badge {
+
+/* 右上角：收藏按钮 */
+.top-right-actions {
   position: absolute;
   top: 10px;
   right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.15);
+}
+
+.favorite-btn .favorite-icon {
+  font-size: 24px;
+  line-height: 1;
+  color: #ffd700;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.status-badge {
   padding: 2px 8px;
   border-radius: 8px;
   font-size: 12px;
@@ -107,7 +172,7 @@ const timeAgo = computed(() => {
 .status-cancelled { background: rgba(117,117,117,0.15); color: #9e9e9e; }
 .card-content { padding: 12px 14px; }
 .prompt-preview {
-  margin: 0 0 10px;
+  margin: 0 0 8px;
   font-size: 14px;
   color: #ccc;
   overflow: hidden;
@@ -115,6 +180,29 @@ const timeAgo = computed(() => {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   padding-right: 60px;
+}
+.params-info {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.param-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  border-radius: 6px;
+  font-size: 11px;
+  color: #888;
+  font-weight: 500;
+}
+.type-tag {
+  background: linear-gradient(135deg, #6c63ff 0%, #8b7fff 100%);
+  border-color: #6c63ff;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(108, 99, 255, 0.4);
 }
 .progress-bar {
   height: 3px;
@@ -137,7 +225,20 @@ const timeAgo = computed(() => {
 .thumbnails { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0; }
 .thumbnail { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; }
 .error-msg { color: #ef5350; font-size: 13px; margin: 4px 0 8px; }
-.actions { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+/* 左下角：状态标签和时间 */
+.left-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .time { font-size: 12px; color: #555; }
 .action-btns { display: flex; gap: 8px; }
 .action-btn {

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>灵兰 APK 下载二维码生成器</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        #qrcode {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            border-radius: 5px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🌸 灵兰 APK 下载</h1>
+
+        <div class="input-group">
+            <label for="apkUrl">APK 下载地址：</label>
+            <input type="text" id="apkUrl" placeholder="输入 APK 文件的下载链接">
+        </div>
+
+        <button onclick="generateQR()">生成二维码</button>
+
+        <div id="qrcode"></div>
+
+        <div class="info">
+            <strong>使用说明：</strong>
+            <ol>
+                <li>将构建好的 APK 文件上传到服务器或使用本地服务器</li>
+                <li>在上方输入框中输入 APK 的下载地址</li>
+                <li>点击"生成二维码"按钮</li>
+                <li>使用手机扫描二维码即可下载安装</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        let qrcode = null;
+
+        function generateQR() {
+            const url = document.getElementById('apkUrl').value.trim();
+
+            if (!url) {
+                alert('请输入 APK 下载地址');
+                return;
+            }
+
+            const qrcodeDiv = document.getElementById('qrcode');
+            qrcodeDiv.innerHTML = '';
+
+            qrcode = new QRCode(qrcodeDiv, {
+                text: url,
+                width: 256,
+                height: 256,
+                colorDark: "#667eea",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            setTimeout(() => {
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = '下载二维码图片';
+                downloadBtn.style.marginTop = '20px';
+                downloadBtn.onclick = downloadQRCode;
+                qrcodeDiv.appendChild(downloadBtn);
+            }, 100);
+        }
+
+        function downloadQRCode() {
+            const canvas = document.querySelector('#qrcode canvas');
+            if (canvas) {
+                const url = canvas.toDataURL('image/png');
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = '灵兰-下载二维码.png';
+                a.click();
+            }
+        }
+    </script>
+</body>
+</html>

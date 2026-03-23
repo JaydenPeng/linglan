@@ -1,7 +1,11 @@
-import Store from 'electron-store'
+import ElectronStore from 'electron-store'
+const Store = (ElectronStore as any).default ?? ElectronStore
 import { safeStorage } from 'electron'
 
-const store = new Store<Record<string, string>>()
+const store = new Store<Record<string, string>>({
+  name: 'linglan-config',
+  projectName: 'linglan'
+})
 
 export function saveCredentials(key: string, value: string): void {
   // safeStorage 必须在 app.whenReady 后调用（IPC handler 中调用时 app 已就绪）

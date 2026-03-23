@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain, Menu } from 'electron'
 import { join } from 'path'
 import { registerVideoHandlers } from './ipc/videoHandlers'
 import { registerConfigHandlers } from './ipc/configHandlers'
@@ -6,8 +6,8 @@ import { registerImageHandlers } from './imageHandler'
 
 function createWindow(): BrowserWindow {
   const win = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 393,
+    height: 852,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       contextIsolation: true,
@@ -26,9 +26,10 @@ function createWindow(): BrowserWindow {
 }
 
 app.whenReady().then(() => {
+  Menu.setApplicationMenu(null)  // 隐藏菜单栏，必须在 app ready 后调用
   registerConfigHandlers()  // IPC 处理器在 app.whenReady 后注册（safeStorage 需要 app 就绪）
-  registerVideoHandlers(ipcMain)
   const win = createWindow()
+  registerVideoHandlers(ipcMain, win)
   registerImageHandlers(win)
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
