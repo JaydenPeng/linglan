@@ -84,7 +84,12 @@
     "mac": {
       "target": [
         "dmg"
-      ]
+      ],
+      "category": "public.app-category.productivity",
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "entitlements": null,
+      "entitlementsInherit": null
     },
     "linux": {
       "target": [
